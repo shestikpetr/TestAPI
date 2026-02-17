@@ -10,17 +10,23 @@ import jakarta.validation.constraints.NotBlank
 class User(
     @NotBlank
     @Column(unique = true)
-    var username: String = "",
-    @Column(unique = true)
+    var username: String,
+
+    @Column(unique = true, nullable = false)
     @Email
     @NotBlank
-    var email: String = "",
+    var email: String,
+
     @NotBlank
-    var password: String = "",
+    @Column(nullable = false)
+    var password: String,
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     var systemRole: SystemRole = SystemRole.USER,
+
     var avatarUrl: String? = null,
+
     @OneToMany(mappedBy = "user")
     var memberships: MutableList<GroupMembership> = mutableListOf()
 ) : BaseEntity()
