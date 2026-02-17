@@ -13,9 +13,7 @@ class Test(
     var title: String = "",
     var description: String? = null,
     var coverUrl: String? = null,
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
-    val author: User? = null,
+    val authorId: Long? = null,
 
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name = "test_id")
@@ -28,6 +26,6 @@ class Test(
         description = this.description,
         coverUrl = this.coverUrl,
         questions = this.questions.map { it.copy() }.toMutableList(),
-        author = this.author,
+        authorId = this.authorId,
     )
 }

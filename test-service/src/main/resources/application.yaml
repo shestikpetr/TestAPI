@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: test-service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/test_db
+    username: myuser
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+server:
+  port: 8082

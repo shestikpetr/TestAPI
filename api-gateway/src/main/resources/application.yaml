@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 8080
+
+services:
+  user-service-url: http://localhost:8081
+  test-service-url: http://localhost:8082
+  media-service-url: http://localhost:8083
