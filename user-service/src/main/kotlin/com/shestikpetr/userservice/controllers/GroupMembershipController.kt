@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/v1/groups/{groupId}/members")
+@RequestMapping("/groups/{groupId}/members")
 class GroupMembershipController(private val groupMembershipService: GroupMembershipService) {
 
     @GetMapping
