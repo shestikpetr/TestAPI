@@ -1,5 +1,6 @@
 package com.shestikpetr.userservice.services
 
+import com.shestikpetr.userservice.dto.UpdateUserRequest
 import com.shestikpetr.userservice.entities.User
 import com.shestikpetr.userservice.repositories.UserRepository
 import org.springframework.http.HttpStatus
@@ -8,9 +9,8 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class UserService(private val userRepository: UserRepository) {
-    fun createUser(user: User) {
-        userRepository.save(user)
-    }
+    fun createUser(user: User): User = userRepository.save(user)
+
 
     fun getUserById(id: Long): User = userRepository.findById(id)
         .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "User with id $id not found") }
@@ -18,16 +18,18 @@ class UserService(private val userRepository: UserRepository) {
 
     fun getAllUsers(): List<User> = userRepository.findAll()
 
-    fun updateUserById(id: Long, user: User) {
+    fun updateUserById(id: Long, request: UpdateUserRequest) {
         val existingUser = getUserById(id)
-        existingUser.username = user.username
-        existingUser.email = user.email
-        existingUser.password = user.password
-        existingUser.avatarUrl = user.avatarUrl
-        existingUser.systemRole = user.systemRole
+
+        request.username?.let { existingUser.username = it }
+        request.email?.let { existingUser.email = it }
+        request.password?.let { existingUser.password = it }
+        request.avatarUrl?.let { existingUser.avatarUrl = it }
 
         userRepository.save(existingUser)
     }
 
-    fun deleteUserById(id: Long) = userRepository.deleteById(id)
+    fun deleteUserById(id: Long) {
+        userRepository.deleteById(id)
+    }
 }

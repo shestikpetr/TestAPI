@@ -1,5 +1,6 @@
 package com.shestikpetr.userservice.dto
 
+import com.shestikpetr.userservice.entities.User
 import com.shestikpetr.userservice.enums.SystemRole
 
 data class CreateUserRequest(
@@ -21,4 +22,18 @@ data class UserResponse(
     val email: String,
     val systemRole: SystemRole,
     val avatarUrl: String?
+)
+
+fun User.toResponse() = UserResponse(
+    id = id!!,
+    username = username,
+    email = email,
+    systemRole = systemRole,
+    avatarUrl = avatarUrl
+)
+
+fun CreateUserRequest.toEntity() = User(
+    username = username,
+    email = email,
+    password = password
 )

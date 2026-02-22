@@ -40,7 +40,7 @@ class GroupMembershipService(
         groupMembershipRepository.save(membership)
     }
 
-    fun removeMember(userId: Long, groupId: Long) {
+    fun removeMember(groupId: Long, userId: Long) {
         val membership =
             groupMembershipRepository.findByUserIdAndGroupId(userId, groupId) ?: throw ResponseStatusException(
                 HttpStatus.NOT_FOUND, "User with id $userId not found in group with id $groupId"
@@ -52,7 +52,7 @@ class GroupMembershipService(
 
     fun getUserGroups(userId: Long): List<GroupMembership> = groupMembershipRepository.findByUserId(userId)
 
-    fun updateRole(userId: Long, groupId: Long, role: GroupRole) {
+    fun updateRole(groupId: Long, userId: Long, role: GroupRole) {
         val membership =
             groupMembershipRepository.findByUserIdAndGroupId(userId, groupId) ?: throw ResponseStatusException(
                 HttpStatus.NOT_FOUND,
