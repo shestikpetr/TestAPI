@@ -16,3 +16,16 @@ services:
       - 'POSTGRES_USER=myuser'
     ports:
       - '5433:5432'
+
+
+  user-service:
+    build:
+      context: ./user-service
+    ports:
+      - "8081:8081"
+    environment:
+      DB_URL: jdbc:postgresql://postgres-user:5432/user_db
+      DB_USERNAME: myuser
+      DB_PASSWORD: secret
+    depends_on:
+      - postgres-user
