@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/users")
-class UserController(private val userService: UserService, private val groupMembershipService: GroupMembershipService) {
+class UserController(
+    private val userService: UserService,
+    private val groupMembershipService: GroupMembershipService
+) {
 
     @GetMapping
     fun getAll() = userService.getAllUsers().map { it.toResponse() }
