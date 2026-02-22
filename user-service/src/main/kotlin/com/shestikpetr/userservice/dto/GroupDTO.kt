@@ -1,8 +1,10 @@
 package com.shestikpetr.userservice.dto
 
 import com.shestikpetr.userservice.entities.Group
+import jakarta.validation.constraints.NotBlank
 
 data class CreateGroupRequest(
+    @NotBlank
     val name: String,
     val description: String?
 )

@@ -2,10 +2,16 @@ package com.shestikpetr.userservice.dto
 
 import com.shestikpetr.userservice.entities.User
 import com.shestikpetr.userservice.enums.SystemRole
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotBlank
 
 data class CreateUserRequest(
+    @NotBlank
     val username: String,
+    @NotBlank
+    @Email
     val email: String,
+    @NotBlank
     val password: String
 )
 
