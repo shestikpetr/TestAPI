@@ -16,17 +16,18 @@ class GroupService(private val groupRepository: GroupRepository) {
 
     fun getAllGroups(): List<Group> = groupRepository.findAll()
 
-    fun updateGroupById(id: Long, request: UpdateGroupRequest) {
+    fun updateGroupById(id: Long, request: UpdateGroupRequest): Group {
         val existingGroup = getGroupById(id)
 
         request.name?.let { existingGroup.name = it }
         request.description?.let { existingGroup.description = it }
         request.coverUrl?.let { existingGroup.coverUrl = it }
 
-        groupRepository.save(existingGroup)
+        return groupRepository.save(existingGroup)
     }
 
     fun deleteGroupById(id: Long) {
+        getGroupById(id)
         groupRepository.deleteById(id)
     }
 }

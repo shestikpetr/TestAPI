@@ -15,7 +15,7 @@ class GroupMembershipService(
     private val userRepository: UserRepository,
     private val groupRepository: GroupRepository
 ) {
-    fun addMember(userId: Long, groupId: Long, role: GroupRole) {
+    fun addMember(groupId: Long, userId: Long, role: GroupRole): GroupMembership {
         val user = userRepository.findById(userId).orElseThrow {
             ResponseStatusException(
                 HttpStatus.NOT_FOUND,
@@ -37,7 +37,7 @@ class GroupMembershipService(
         }
 
         val membership = GroupMembership(user, group, role)
-        groupMembershipRepository.save(membership)
+        return groupMembershipRepository.save(membership)
     }
 
     fun removeMember(groupId: Long, userId: Long) {
@@ -48,9 +48,9 @@ class GroupMembershipService(
         groupMembershipRepository.delete(membership)
     }
 
-    fun getGroupMembers(groupId: Long): List<GroupMembership> = groupMembershipRepository.findByGroupId(groupId)
+    fun getGroupMembers(groupId: Long): List<GroupMembership> = groupMembershipRepository.findByGroupIdWithUser(groupId)
 
-    fun getUserGroups(userId: Long): List<GroupMembership> = groupMembershipRepository.findByUserId(userId)
+    fun getUserGroups(userId: Long): List<GroupMembership> = groupMembershipRepository.findByUserIdWithGroups(userId)
 
     fun updateRole(groupId: Long, userId: Long, role: GroupRole) {
         val membership =

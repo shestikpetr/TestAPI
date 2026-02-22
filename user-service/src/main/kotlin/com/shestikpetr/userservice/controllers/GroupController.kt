@@ -25,9 +25,9 @@ class GroupController(private val groupService: GroupService) {
         groupService.createGroup(request.toEntity()).toResponse()
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     fun update(@PathVariable id: Long, @RequestBody @Valid request: UpdateGroupRequest) =
-        groupService.updateGroupById(id, request)
+        groupService.updateGroupById(id, request).toResponse()
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

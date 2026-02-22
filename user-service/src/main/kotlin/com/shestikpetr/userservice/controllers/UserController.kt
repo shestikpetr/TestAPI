@@ -23,15 +23,15 @@ class UserController(private val userService: UserService, private val groupMemb
         userService.createUser(request.toEntity()).toResponse()
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     fun update(@PathVariable id: Long, @RequestBody @Valid request: UpdateUserRequest) =
-        userService.updateUserById(id, request)
+        userService.updateUserById(id, request).toResponse()
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: Long) = userService.deleteUserById(id)
 
     @GetMapping("/{id}/groups")
-    fun getGroups(@PathVariable id: Long): List<GroupMembershipResponse> =
-        groupMembershipService.getUserGroups(id).map { it.toResponse() }
+    fun getGroups(@PathVariable id: Long): List<UserGroupResponse> =
+        groupMembershipService.getUserGroups(id).map { it.toUserGroupResponse() }
 }

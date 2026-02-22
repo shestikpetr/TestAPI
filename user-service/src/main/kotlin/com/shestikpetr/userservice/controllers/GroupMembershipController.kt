@@ -21,14 +21,15 @@ import org.springframework.web.bind.annotation.RestController
 class GroupMembershipController(private val groupMembershipService: GroupMembershipService) {
 
     @GetMapping
-    fun getMembers(@PathVariable groupId: Long) = groupMembershipService.getGroupMembers(groupId).map { it.toResponse() }
+    fun getMembers(@PathVariable groupId: Long) =
+        groupMembershipService.getGroupMembers(groupId).map { it.toResponse() }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun addMember(
         @PathVariable groupId: Long,
         @RequestBody @Valid request: AddMemberRequest
-    ) = groupMembershipService.addMember(request.userId, groupId, request.role)
+    ) = groupMembershipService.addMember(groupId, request.userId, request.role).toResponse()
 
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -23,3 +23,15 @@ fun GroupMembership.toResponse() = GroupMembershipResponse(
     username = user.username,
     role = role
 )
+
+data class UserGroupResponse(
+    val groupId: Long,
+    val groupName: String,
+    val role: GroupRole
+)
+
+fun GroupMembership.toUserGroupResponse() = UserGroupResponse(
+    groupId = group.id!!,
+    groupName = group.name,
+    role = role
+)
